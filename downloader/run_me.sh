@@ -49,7 +49,7 @@ done < "${SYNSET}"
 
 # put validation data into directories just as the training data
 echo "Organizing the validation data into sub-directories."
-wget -N "https://raw.githubusercontent.com/tensorflow/models/master/research/inception/inception/data/imagenet_2012_validation_synset_labels.txt" -O "${OUTDxIR}/imagenet_2012_validation_synset_labels.txt"
+wget -N "https://raw.githubusercontent.com/tensorflow/models/master/research/inception/inception/data/imagenet_2012_validation_synset_labels.txt" -O "${OUTDIR}/imagenet_2012_validation_synset_labels.txt"
 python preprocess_imagenet_validation_data.py "${OUTDIR}/validation/" "${OUTDIR}/imagenet_2012_validation_synset_labels.txt"
 
 # extract bounding box infor into an csv file
