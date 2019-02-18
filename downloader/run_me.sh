@@ -34,7 +34,7 @@ wget -nd -c "http://www.image-net.org/challenges/LSVRC/2012/nnoupb/ILSVRC2012_im
 
 # extract individual train tar files
 SYNSET="${OUTDIR}/imagenet_lsvrc_2015_synsets.txt"
-wget -N "https://raw.githubusercontent.com/tensorflow/models/master/research/inception/inception/data/imagenet_lsvrc_2015_synsets.txt" -O "${SYNSET_FILE}"
+wget -N "https://raw.githubusercontent.com/tensorflow/models/master/research/inception/inception/data/imagenet_lsvrc_2015_synsets.txt" -O "${SYNSET}"
 while read SYNSET; do
   echo "Processing: ${SYNSET}"
   mkdir -p "${OUTDIR}/train/${SYNSET}"
