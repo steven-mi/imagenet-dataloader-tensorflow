@@ -45,18 +45,16 @@ while read SYNSET; do
   rm -f "${SYNSET}.tar"
 
   echo "Finished processing: ${SYNSET}"
-done < "${SYNSET_FILE}"
+done < "${SYNSET}"
 
 # put validation data into directories just as the training data
+echo "Organizing the validation data into sub-directories."
 wget -N "https://raw.githubusercontent.com/tensorflow/models/master/research/inception/inception/data/imagenet_2012_validation_synset_labels.txt" -O "${OUTDxIR}/imagenet_2012_validation_synset_labels.txt"
-chmod u+x preprocess_imagenet_validation_data.py
-python -m preprocess_imagenet_validation_data.py "${OUTDIR}/validation/" "${OUTDIR}/imagenet_2012_validation_synset_labels.txt"
-#python preprocess_imagenet_validation_data.py "${OUTDIR}/validation/" "${OUTDIR}/imagenet_2012_validation_synset_labels.txt"
+python preprocess_imagenet_validation_data.py "${OUTDIR}/validation/" "${OUTDIR}/imagenet_2012_validation_synset_labels.txt"
 
-# extract bounding box infor into an xml file
+# extract bounding box infor into an csv file
+echo "extract bounding box into into a csv file"
 python process_bounding_boxes.py "${OUTDIR}/bounding_boxes/" "${OUTDIR}/imagenet_lsvrc_2015_synsets.txt" | sort > "${OUTDIR}/imagenet_2012_bounding_boxes.csv"
-# mv imagenet_2012_bounding_boxes.csv "${OUTDIR}/imagenet_2012_bounding_boxes.csv"
 
 # download the metadata text file
 wget -N "https://raw.githubusercontent.com/tensorflow/models/master/research/inception/inception/data/imagenet_metadata.txt" -O "${OUTDIR}/imagenet_metadata.txt"
-
