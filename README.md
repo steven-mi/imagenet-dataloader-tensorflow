@@ -9,17 +9,7 @@ imagenet-dataloader for tensorflow
 This will download the imagenet dataset
 ```bash
 git clone https://github.com/steven-mi/imagenet-dataloader-tensorflow.git
-```
-
-```bash
 cd downloader
-```
-
-```bash
 chmod u+x run_me.sh
-```
-
-```bash
 ./run_me.sh
 ```
-
