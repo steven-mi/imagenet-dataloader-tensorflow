@@ -49,7 +49,7 @@ def _find_image_files(data_dir, labels_file):
   """
   print('Determining list of input files and labels from %s.' % data_dir)
   challenge_synsets = [l.strip() for l in
-                       tf.gfile.FastGFile(labels_file, 'r').readlines()]
+                       tf.gfile.GFile(labels_file, 'r').readlines()]
 
   labels = []
   filenames = []
@@ -141,7 +141,7 @@ def _build_synset_lookup(imagenet_metadata_file):
     Dictionary of synset to human labels, such as:
       'n02119022' --> 'red fox, Vulpes vulpes'
   """
-  lines = tf.gfile.FastGFile(imagenet_metadata_file, 'r').readlines()
+  lines = tf.gfile.GFile(imagenet_metadata_file, 'r').readlines()
   synset_to_human = {}
   for l in lines:
     if l:
@@ -167,7 +167,7 @@ def _build_bounding_box_lookup(bounding_box_file):
     Dictionary mapping image file names to a list of bounding boxes. This list
     contains 0+ bounding boxes.
   """
-  lines = tf.gfile.FastGFile(bounding_box_file, 'r').readlines()
+  lines = tf.gfile.GFile(bounding_box_file, 'r').readlines()
   images_to_bboxes = {}
   num_bbox = 0
   num_image = 0
@@ -337,7 +337,6 @@ class imagenet_data:
       single_image = tf.image.resize_image_with_crop_or_pad(single_image, self.IMAGE_HEIGHT+4, self.IMAGE_WIDTH+4)
       single_image = tf.random_crop(single_image, [self.IMAGE_HEIGHT, self.IMAGE_WIDTH, self.NUM_OF_CHANNELS])
       single_image = tf.image.random_flip_left_right(single_image)
-
       single_image = tf.image.per_image_standardization(single_image)
 
     if shuffle:
@@ -351,7 +350,7 @@ class imagenet_data:
                                                           batch_size=self.batch_size,
                                                           capacity=self.batch_queue_capacity,
                                                           num_threads=1)
-
+    
     def enqueue(sess):
       under = 0
       max = len(all_img_paths)
